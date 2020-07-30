@@ -25,11 +25,11 @@ function DataTypeStr (node) {
 		return node.tokens[0].tokens;
 	}
 
-	let str = DuplicateChar(node.tokens[0], "@") + node.tokens[1].tokens;
+	let str = node.tokens[1].tokens + DuplicateChar(node.tokens[0], "*");
 	if (node.tokens[2]) {
 		for (let access of node.tokens[2]){
 			if (access.tokens[0] == "[]") {
-				str += `#[${access.tokens[1].tokens.map( x => DataTypeStr(x) ).join(", ")}]`;
+				str += `<${access.tokens[1].tokens.map( x => DataTypeStr(x) ).join(", ")}>`;
 			} else {
 				str += access.tokens[0] + access.tokens[1].tokens;
 			}
@@ -47,7 +47,7 @@ function VariableStr (node) {
 		return node.tokens[0].tokens;
 	}
 
-	let str = DuplicateChar(node.tokens[0], "$") + node.tokens[1].tokens;
+	let str = DuplicateChar(node.tokens[0], "*") + node.tokens[1].tokens;
 	if (node.tokens[2]) {
 		for (let access of node.tokens[2]){
 			if (access.tokens[0] == "[]") {
@@ -67,7 +67,7 @@ function VariableStr (node) {
  * @param {Number} count
  * @param {String} char
  */
-function DuplicateChar(count = 1, char = "@"){
+function DuplicateChar(count = 1, char = "*"){
 	let str = "";
 	while (count > 0) {
 		str += char;
