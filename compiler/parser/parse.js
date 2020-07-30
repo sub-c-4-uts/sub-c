@@ -329,12 +329,12 @@ function Simplify_Name (node) {
 
 function Simplify_Data_Type (node) {
 	let inner = [
-		node.tokens[0].length,
-		Simplify_Name(node.tokens[1][0]),
-		node.tokens[2].map(x => {
+		node.tokens[3].length,
+		Simplify_Name(node.tokens[0][0]),
+		node.tokens[1].map(x => {
 			return Simplify_Data_Type_Access(x);
 		}),
-		node.tokens[3].length > 0 ? Simplify_Template(node.tokens[3][0]) : {   // Template
+		node.tokens[2].length > 0 ? Simplify_Template(node.tokens[3][0]) : {   // Template
 			type: "template",
 			tokens: [],
 			ref: {start: null, end:null}

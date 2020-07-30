@@ -55,7 +55,7 @@ program ::= w* ( stmt_top w* )*
 		variable_args ::= variable_arg ( w* "," w* variable_arg )*
 			variable_arg ::= constant | variable
 
-	data_type ::= "@"* name data_type_access* template?
+	data_type ::= name data_type_access* template? "*"*
 		data_type_access ::= "." name
 
 

@@ -1,4 +1,13 @@
 #include "print.cpp"
+#include "alloc.cpp"
+
+void PtrTest() {
+	char* addr = malloc( 1 );
+	int* b = static_cast<int*>(addr);
+	$b = 2;
+
+	return;
+}
 
 int main () {
 	int a = 3;

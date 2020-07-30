@@ -1,4 +1,4 @@
 extern "C" {
-	@char malloc(i32 bytes);
-	void free(@char addr);
+	char* malloc(int bytes);
+	void free(char* addr);
 }
