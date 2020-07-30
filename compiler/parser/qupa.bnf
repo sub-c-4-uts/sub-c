@@ -1,5 +1,5 @@
 program ::= w* ( stmt_top w* )*
-	stmt_top ::= comment | library | class | template_def | struct | flag_definition | external | function
+	stmt_top ::= comment | library | class | struct | external | function
 
 #=============================
 #  Helper patterns
@@ -25,19 +25,11 @@ program ::= w* ( stmt_top w* )*
 #=============================
 #  Constants
 #=============================
-	constant ::= boolean | string | hexidecimal | octal | binary | float | integer
+	constant ::= boolean | string | float | integer
 
 	string ::= string_unicode | string_text
 		string_unicode   ::= "\"" ( "\\\"" | !( "\"" ) )* "\""
 		string_text      ::= "'" ( "\\'"  | !( "'"  ) )* "'"
-
-	hexidecimal ::= "0x" hex_char+
-		hex_char ::= digit | "a" | "b" | "c" | "d" | "e" | "f" | "A" | "B" | "C" | "D" | "E" | "F"
-
-	octal ::= "0o" octal_char+
-		octal_char ::= "0" | "1" | "2" | "3"
-
-	binary ::= "0b" ( "0" | "1" )+
 
 	boolean ::= "true" | "false"
 
@@ -68,23 +60,15 @@ program ::= w* ( stmt_top w* )*
 
 
 #=============================
-#  Flags
-#=============================
-	flags ::= ":" w* "[" w* flag_args w* "]"
-		flag_args ::= variable ( w* "," w* variable )*
-	flag_definition ::= "flag" w+ name w+ "[" w* name ( w* "," w* name )* w* "]" w* ";"
-
-
-#=============================
 #  Function
 #=============================
 	function ::= func_head w* function_body w* ";"?
-		func_head ::= data_type w+ name w* func_arguments w* flags? w*
+		func_head ::= data_type w+ name w* func_arguments w*
 			func_arguments ::= "(" w* func_arg_list? ")"
 				func_arg_list ::= func_arg w* ( "," w* func_arg w* )*
 				func_arg      ::= data_type w+ name ( w* "=" w* constant )?
 		function_body ::= "{" w* ( func_stmt w* )* "}"
-			func_stmt ::= comment | if | for | while | return | declare | assign | declare_assign | call_procedure
+			func_stmt ::= comment | if | while | return | declare | assign | declare_assign | call_procedure
 
 	function_outline ::= func_head w* ";"
 
@@ -116,12 +100,7 @@ program ::= w* ( stmt_top w* )*
 #=============================
 #  Template
 #=============================
-	template_def ::= "template" w* template_arguments w* template_opperand
-		template_def_arguments ::= "(" w* ( template_arg w* )? ( "," w* template_arg w* )* ")"
-			template_def_arg ::= "^"? data_type w+ name flags?
-		template_opperand ::= function_outline | function | class
-
-	template ::= "#[" w* template_args w* "]"
+	template ::= "<" w* template_args w* ">"
 		template_args ::= template_arg ( w* "," w* template_arg )*
 		template_arg  ::= constant | data_type
 
@@ -129,10 +108,9 @@ program ::= w* ( stmt_top w* )*
 #=============================
 #  Expression
 #=============================
-	expr ::= w* expr_np
+	expr ::= expr_np
 
-	expr_np       ::= expr_compare | expr_arithmetic | expr_bool | call | expr_op
-		expr_ternary ::= expr_op w* "?" w* expr_op w* ":" w* expr_op
+	expr_np       ::= call | expr_compare | expr_arithmetic | expr_bool | expr_op
 	expr_bool ::= expr_and | expr_or | expr_not
 		expr_and     ::= expr_op w* "&&" w* expr_op
 		expr_or      ::= expr_op w* "||" w* expr_op
@@ -151,7 +129,6 @@ program ::= w* ( stmt_top w* )*
 		expr_add     ::= expr_op w* "+" w* expr_op
 		expr_sub     ::= expr_op w* "-" w* expr_op
 	expr_op ::= constant | variable
-		expr_brackets    ::= "(" w* expr w* ")"
 
 
 #=============================
@@ -159,16 +136,15 @@ program ::= w* ( stmt_top w* )*
 #=============================
 	library ::= import | import
 
-	import ::= import_as | import_direct
-		import_as ::= "import" w* string w* ";"
-		import_direct ::= "import" w* string w+ "as" w+ name w* ";"
+	import ::= import_as | import_as
+		import_as ::= "#include" w* string
 
 
 #=============================
 #  External
 #=============================
-	external ::= "external" w+ external_mode w* "{" w* external_body w* "}" ";"?
-		external_mode ::= "assume" | "export"
+	external ::= "extern" w+ external_mode w* "{" w* external_body w* "}" ";"?
+		external_mode ::= "\"C\"" | "\"C\""
 		external_body ::= ( external_term w* )*
 		external_term ::= type_def | struct | function_outline | declare | comment
 
@@ -187,7 +163,4 @@ program ::= w* ( stmt_top w* )*
 #=============================
 #  Loops
 #=============================
-	for ::= "for" w* "(" w* for_condition w* ")" w* function_body
-		for_condition ::= expr w* ";" w* expr w* ";" expr
-
 	while ::= "while" w* "(" w* expr w* ")" w* function_body

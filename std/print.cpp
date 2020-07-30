@@ -1,10 +1,10 @@
-external assume {
+extern "C" {
 	void i1_print(bool val);
 	void i1_println(bool val);
-	void i32_print(i32 val);
-	void i32_println(i32 val);
-	void i64_print(i64 val);
-	void i64_println(i64 val);
+	void i32_print(int val);
+	void i32_println(int val);
+	void i64_print(long val);
+	void i64_println(long val);
 	void f32_print(float val);
 	void f32_println(float val);
 	void str_print(@char val);
@@ -21,7 +21,7 @@ void print(int val) {
 	i32_print(val);
 	return;
 }
-void print(i64 val) {
+void print(long val) {
 	i64_print(val);
 	return;
 }
@@ -43,7 +43,7 @@ void println(int val) {
 	i32_println(val);
 	return;
 }
-void println(i64 val) {
+void println(long val) {
 	i64_println(val);
 	return;
 }

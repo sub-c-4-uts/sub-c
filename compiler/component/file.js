@@ -48,13 +48,9 @@ class File {
 			if (element.type == "comment") {
 				continue;
 			} else if (element.type == "external") {
-				if (element.tokens[0] == "assume") {
+				if (element.tokens[0] == '"C"') {
 					for (let inner of element.tokens[1]){
 						this.register(inner, true);
-					}
-				} else if (element.tokens[0] == "export") {
-					for (let inner of element.tokens[1]){
-						this.exports.push(inner);
 					}
 				} else {
 					console.error(`Error: Unknown external type "${element.tokens[0]}"`);

@@ -42,9 +42,6 @@ function Simplify_Stmt_Top(node) {
 		case "struct":
 			inner = Simplify_Struct(node.tokens[0]);
 			break;
-		case "flag_definition":
-			inner = Simplify_Flag_Definition(node.tokens[0]);
-			break;
 		default:
 			throw new TypeError(`Unexpected top level statement ${node.tokens[0].type}`);
 	}
@@ -156,13 +153,6 @@ function Simplify_Template_Arg (node) {
 		default:
 			throw new TypeError(`Unexpected data-type type ${node.tokens[0].type}`);
 	}
-}
-
-
-
-function Simplify_Flag_Definition(node) {
-	// TODO
-	return node;
 }
 
 
@@ -454,7 +444,6 @@ function Simplify_Function_Head (node) {
 		Simplify_Data_Type  (node.tokens[0][0]), // Return type
 		Simplify_Name       (node.tokens[2][0]), // Name
 		Simplify_Func_Args  (node.tokens[4][0]), // Arguments
-		Simplify_Func_Flags (node.tokens[6][0])  // Flags
 	];
 	node.reached = null;
 	return node;
@@ -652,7 +641,7 @@ function Simplify_Assign  (node) {
 
 
 function Simplify_Expr (node) {
-	return Simplify_Expr_NoPrecedence (node.tokens[1][0]);
+	return Simplify_Expr_NoPrecedence (node.tokens[0][0]);
 }
 function Simplify_Expr_NoPrecedence (node) {
 	switch (node.tokens[0].type) {
