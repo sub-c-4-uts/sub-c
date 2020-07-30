@@ -334,7 +334,7 @@ function Simplify_Data_Type (node) {
 		node.tokens[1].map(x => {
 			return Simplify_Data_Type_Access(x);
 		}),
-		node.tokens[2].length > 0 ? Simplify_Template(node.tokens[3][0]) : {   // Template
+		node.tokens[2].length > 0 ? Simplify_Template(node.tokens[2][0]) : {   // Template
 			type: "template",
 			tokens: [],
 			ref: {start: null, end:null}

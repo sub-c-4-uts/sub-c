@@ -1,13 +1,97 @@
 #include "print.cpp"
 #include "alloc.cpp"
 
-void PtrTest() {
+
+
+
+struct Rect {
+	i32 width;
+	i32 height;
+}
+
+void Test_Structure() {
+	// Define two example rectangles
+	Rect a;
+	Rect b;
+	a.width = 4;
+	a.height = 5;
+	b.width = 6;
+	b.height = 7;
+
+	return;
+}
+
+
+
+void printArr(Array<int, 3> arr) {
+	print("[ ");
+	print(arr[0]);
+	print(", ");
+	print(arr[1]);
+	print(", ");
+	print(arr[2]);
+	print(" ]");
+
+	return;
+}
+
+
+
+
+void Test_Static_Array() {
+	// Construct the array locally to check caching
+	Array<int, 3> arr;
+	arr[0] = 42;
+	arr[1] = 12;
+	arr[2] = -56;
+
+	printArr(arr);
+
+	int i = 1;
+	int j = 2;
+	arr[i] = arr[i] + arr[j];
+
+	println(arr[i]);
+	printArr(arr);
+
+	return;
+}
+
+
+
+
+int Test_Dynamic_Array () {
+	int size = sizeof<i64>();
+	size = size * 4;
+
+	char* addr = malloc(size);
+	Array<i64>* arr = static_cast< Array<i64>* >(addr);
+
+	print("[ ");
+	print(arr->[0]);
+	print(", ");
+	print(arr->[1]);
+	print(", ");
+	print(arr->[2]);
+	print(" ]");
+
+	free(addr);
+	return 0;
+}
+
+
+
+
+void Test_Pointer() {
 	char* addr = malloc( 1 );
 	int* b = static_cast<int*>(addr);
 	*b = 2;
 
 	return;
 }
+
+
+
 
 int main () {
 	int a = 3;
