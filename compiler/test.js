@@ -38,20 +38,9 @@ function Compile(root) {
 
 
 let tests = [
-	"array/main.qp",
-	"cast/main.qp",
-	"compare/main.qp",
-	"dynamic-alloc/main.qp",
-	"first-execution/main.qp",
-	"if-statement/main.qp",
-	"library-behaviour/main.qp",
-	"math/main.qp",
-	"pointer/main.qp",
-	"string/main.qp",
-	"structure/main.qp",
-	"while-loop/main.qp"
+	"example.cpp"
 ].map( x => {
-	return resolve("./test/pre-alpha", x);
+	return resolve("./test", x);
 });
 
 let i = 0;
