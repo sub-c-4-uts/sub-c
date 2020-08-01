@@ -18,7 +18,17 @@ const types = require('./types.js');
 function Generate (ctx) {
 	let file = new File(ctx, 0, "primative");
 
-	for (let name in types) {
+	let keys = [
+		'uchar',  'char',
+		'ushort', 'short',
+		'uint',   'int',
+		'ulong',  'long',
+		'float',  'double',
+		'void',
+		'bool'
+	];
+
+	for (let name of keys) {
 		file.names[name] = types[name];
 	}
 

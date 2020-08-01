@@ -5,8 +5,8 @@
 
 
 struct Rect {
-	i32 width;
-	i32 height;
+	int width;
+	int height;
 }
 
 void Test_Structure() {
@@ -61,11 +61,11 @@ void Test_Static_Array() {
 
 
 int Test_Dynamic_Array () {
-	int size = sizeof<i64>();
+	int size = sizeof<long>();
 	size = size * 4;
 
 	char* addr = malloc(size);
-	Array<i64>* arr = static_cast< Array<i64>* >(addr);
+	Array<long>* arr = static_cast< Array<long>* >(addr);
 
 	print("[ ");
 	print(arr->[0]);
