@@ -1,7 +1,7 @@
 {
-  "name": "@qupa/qupa",
-  "version": "0.0.3",
-  "description": "Queued Parallelism Language",
+  "name": "sub-c",
+  "version": "0.0.0",
+  "description": "A subset of C with a few C++ syntax extensions only available for primitive functions to simplify the syntax. Developed for UTS' 'secure programing and penetration' testing course",
   "main": "compile/compile.js",
   "preferGlobal": true,
   "engines": {
@@ -23,7 +23,7 @@
     "build-runtime": "clang++ runtime/runtime.cpp -S -emit-llvm -o runtime/runtime.ll"
   },
   "bin": {
-    "qupa": "compiler/compile.js"
+    "subc": "compiler/compile.js"
   },
   "repository": {
     "type": "git",

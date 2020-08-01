@@ -1,6 +1,6 @@
-# Qupa
+# Sub-set C
 
-A compiled programming language based around having individual queues for each thread allowing event and callback driven multithreading behaviour.
+A subset of C with a few C++ syntax extensions only available for primitive functions to simplify the syntax. Developed for UTS' 'secure programing and penetration' testing course
 
 ## Setup
 First you need do install Clang and NPM, both of which are operating system specific.
@@ -15,15 +15,15 @@ sudo apt-get clang++</code></pre>
 	First simply install NodeJS from <a href="https://nodejs.dev">nodejs.dev</a>, then you need to install clang. To install Clang one Windows you need to have MSVC installed first - to do this follow this <a href="https://docs.microsoft.com/en-us/cpp/build/vscpp-step-0-installation">guide</a>, then once MSVC is installed you can simply download the pre-built binary for you computer from <a href="https://releases.llvm.org/download.html">here</a>
 </details>
 
-Once that is done, simply run these lines in the folder and now all required files are prepared for your system
+Clone the repository, then run this command from within the root directory of the repo
 ```
-npm install @qupa/qupa
+npm install . -g
 ```
 
 ## CLI Ussage
-Once you have followed the setup, NPM has registered ``qupa`` as a command that can be used to compile with.
+Once you have followed the setup, NPM has registered ``subc`` as a command that can be used to compile with.
 ```
-qupa {entry_file}
+subc {entry_file}
 ```
 
 ## Flags
