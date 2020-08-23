@@ -354,7 +354,8 @@ function Simplify_Data_Type_Access (node) {
 }
 
 function Simplify_Data_Type_Array (node) {
-	return Simplify_Constant(node.tokens[2][0]);
+	return node.tokens[2][0].tokens == "" ? "" :
+		Simplify_Constant(node.tokens[2][0].tokens[0]);
 }
 
 
