@@ -175,10 +175,21 @@ class Execution {
 			return null;
 		}
 
-		return this.getFile().getType(
+		let type = this.getFile().getType(
 			Flattern.DataTypeList(node),
 			template
 		);
+
+		const ArrayType = this.getFile().project.files[0].names['Array'];
+
+		for (let val of node.tokens[4]) {
+			type = ArrayType.getType([], [
+				type,
+				this.compile_constant(val)
+			]);
+		}
+
+		return type;
 	}
 
 	/**
