@@ -55,8 +55,9 @@ program ::= w* ( stmt_top w* )*
 		variable_args ::= variable_arg ( w* "," w* variable_arg )*
 			variable_arg ::= constant | variable
 
-	data_type ::= name data_type_access* template? "*"*
+	data_type ::= name data_type_access* template? data_type_array* "*"*
 		data_type_access ::= "." name
+		data_type_array ::= "[" w* constant w* "]"
 
 
 #=============================
@@ -144,9 +145,8 @@ program ::= w* ( stmt_top w* )*
 #=============================
 #  If statement
 #=============================
-	if ::= if_stmt ( w* elif_stmt )* w* else_stmt?
+	if ::= if_stmt w* else_stmt?
 		if_stmt   ::= "if"   w* "(" w* expr w* ")" w* function_body
-		elif_stmt ::= "elif" w* "(" w* expr w* ")" w* function_body
 		else_stmt ::= "else" w* function_body
 
 

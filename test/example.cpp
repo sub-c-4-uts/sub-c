@@ -23,7 +23,7 @@ void Test_Structure() {
 
 
 
-void printArr(Array<int, 3> arr) {
+void printArr(int[3] arr) {
 	print("[ ");
 	print(arr[0]);
 	print(", ");
@@ -40,7 +40,7 @@ void printArr(Array<int, 3> arr) {
 
 void Test_Static_Array() {
 	// Construct the array locally to check caching
-	Array<int, 3> arr;
+	int[3] arr;
 	arr[0] = 42;
 	arr[1] = 12;
 	arr[2] = -56;

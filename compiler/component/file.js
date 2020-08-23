@@ -161,7 +161,7 @@ class File {
 			if (res) {
 				if (res instanceof Template || typeList.length > 1) {
 					return res.getType(typeList.slice(1), template);
-				} else {
+				} else if (template.length == 0) {
 					return new TypeRef(0, res);
 				}
 			}
@@ -265,7 +265,8 @@ class File {
 		fragment.append(new LLVM.Comment(`ModuleID = '${this.getRelative()}'`));
 
 		for (let key in this.names) {
-			fragment.append(this.names[key].compile());
+			let res = this.names[key].compile();
+			fragment.append(res);
 		}
 
 		return fragment;

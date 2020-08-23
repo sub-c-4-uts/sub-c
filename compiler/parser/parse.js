@@ -329,16 +329,17 @@ function Simplify_Name (node) {
 
 function Simplify_Data_Type (node) {
 	let inner = [
-		node.tokens[3].length,
+		node.tokens[4].length,
 		Simplify_Name(node.tokens[0][0]),
 		node.tokens[1].map(x => {
 			return Simplify_Data_Type_Access(x);
 		}),
-		node.tokens[2].length > 0 ? Simplify_Template(node.tokens[2][0]) : {   // Template
+		node.tokens[2].length > 0 ? Simplify_Template(node.tokens[2][0]) : {
 			type: "template",
 			tokens: [],
 			ref: {start: null, end:null}
 		},
+		node.tokens[3].map( x => Simplify_Data_Type_Array(x) )
 	];
 
 	node.reached = null;
@@ -350,6 +351,10 @@ function Simplify_Data_Type_Access (node) {
 	node.tokens = [ ".", Simplify_Name(node.tokens[1][0]) ];
 	node.reached = null;
 	return node;
+}
+
+function Simplify_Data_Type_Array (node) {
+	return Simplify_Constant(node.tokens[2][0]);
 }
 
 
@@ -552,7 +557,7 @@ function Simplify_Call_Args (node) {
 function Simplify_If (node) {
 	let out = [
 		Simplify_If_Stmt(node.tokens[0][0]),
-		node.tokens[1].map(x => Simplify_If_Stmt(x)),
+		[],
 		node.tokens[3].length > 0 ? Simplify_If_Else(node.tokens[3][0]) : null
 	];
 
