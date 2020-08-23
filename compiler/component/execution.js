@@ -144,6 +144,9 @@ class Execution {
 						return null;
 					}
 
+					// Resolve array level
+					type = this.resolveTypeArray(type, arg.tokens[4]);
+
 					// Update pointer size
 					type.pointer = arg.tokens[0];
 
@@ -165,6 +168,24 @@ class Execution {
 	}
 
 	/**
+	 * Resolves an array type
+	 * @param {TypeRef} type
+	 * @param {BNF_Node[]} nodes
+	 */
+	resolveTypeArray (type, nodes = []) {
+		const ArrayType = this.getFile().project.files[0].names['Array'];
+
+		for (let val of nodes) {
+			type = ArrayType.getType([], [
+				type,
+				val == "" ? undefined : this.compile_constant(val)
+			]);
+		}
+
+		return type;
+	}
+
+	/**
 	 *
 	 * @param {BNF_Node} node
 	 */
@@ -179,16 +200,7 @@ class Execution {
 			template
 		);
 
-		const ArrayType = this.getFile().project.files[0].names['Array'];
-
-		for (let val of node.tokens[4]) {
-			type = ArrayType.getType([], [
-				type,
-				this.compile_constant(val)
-			]);
-		}
-
-		return type;
+		return this.resolveTypeArray(type, node.tokens[4]);
 	}
 
 	/**
