@@ -57,7 +57,7 @@ program ::= w* ( stmt_top w* )*
 
 	data_type ::= name data_type_access* template? data_type_array* "*"*
 		data_type_access ::= "." name
-		data_type_array ::= "[" w* constant w* "]"
+		data_type_array ::= "[" w* ( constant | "" ) w* "]"
 
 
 #=============================

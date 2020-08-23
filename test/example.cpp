@@ -65,7 +65,7 @@ int Test_Dynamic_Array () {
 	size = size * 4;
 
 	char* addr = malloc(size);
-	Array<long>* arr = static_cast< Array<long>* >(addr);
+	long[]* arr = static_cast< long[]* >(addr);
 
 	print("[ ");
 	print(arr->[0]);
